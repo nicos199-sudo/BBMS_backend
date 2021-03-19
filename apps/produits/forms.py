@@ -4,16 +4,16 @@ from .models import Stock
 class StockCreateForm(forms.ModelForm):
 	class Meta:
 		model = Stock
-		fields = ['categorie', 'nom_produit', 'quantite']
+		fields = ['categorie', 'nom_produit', 'quantite','date_donation']
 
 	def clean_categorie(self):
 		categorie = self.cleaned_data.get('categorie')
 		if not categorie:
 			raise forms.ValidationError('veillez remplir ce chanp!!')
 
-		#for instance in Stock.objects.all():
-			#if instance.categorie == categorie:
-				#raise forms.ValidationError(str(categorie) + ' is already created')
+		for instance in Stock.objects.all():
+			if instance.categorie == categorie:
+				raise forms.ValidationError(str(categorie) + ' is already created')
 		
 		return categorie
 
@@ -27,6 +27,7 @@ class StockCreateForm(forms.ModelForm):
 				raise forms.ValidationError(str(nom_produit) + ' deja cree!')
 		return nom_produit
 
+	
 class StockSearchForm(forms.ModelForm):
 	export_to_CSV = forms.BooleanField(required=False)
 	class Meta:

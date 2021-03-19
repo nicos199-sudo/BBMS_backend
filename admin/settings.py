@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.fiches',
     'apps.facture',
     'apps.accounts',
+    #'apps.doneur',
 
     'crispy_forms',
 ]
